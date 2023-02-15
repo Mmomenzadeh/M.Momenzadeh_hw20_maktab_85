@@ -1,0 +1,47 @@
+form{
+   background-color:#eef3fa;
+   width: 40rem;
+   height: 20rem;
+   padding: 1rem;
+   border-radius: 3rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+
+}
+
+.input-ui{
+    display: flex;
+    
+
+}
+.input-container{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 75%;
+   
+}
+
+.input-container input{
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    border-radius: 0.3rem;
+    margin-top: 0.2rem;
+}
+
+button{
+    background-color: #2e3891;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 150px;
+    text-align: center;
+}
+
+.btn-form{
+    width: 100%;
+    text-align: center;
+}
