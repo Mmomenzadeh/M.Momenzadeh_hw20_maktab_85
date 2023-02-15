@@ -28,7 +28,7 @@ const Form =()=>{
           
             </div>
             <div className=" input-container" >
-                <label>* (  jpg png یا pdf با فرمت های ) فایل رزمه </label>
+                <label>* ( با فرمت های  jpg png یا pdf ) فایل رزمه </label>
                 <input type="file"  style={{backgroundColor : "#fff" , marginTop :"0.5rem"}}/>
 
             </div>
