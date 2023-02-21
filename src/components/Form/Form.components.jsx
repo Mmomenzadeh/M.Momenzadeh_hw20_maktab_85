@@ -1,46 +1,55 @@
-import { useState } from "react";
 import "./Form.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveInputValue } from "../../redux/actionCreator";
+import { useForm } from "react-hook-form";
+import { errorsInput } from "../../errors/index";
+
 const Form = () => {
   const state = useSelector((state) => state);
+  console.log(state);
   const dispatch = useDispatch();
 
-  const initialState = {
-    name : "",
-    email : "",
-    phoneNumber:"",
-    cooperationPosition : "",
-    resumes : ""
-}
-  const [inputValue, setInputValue] = useState(initialState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault()
-     dispatch(saveInputValue(inputValue))
-    };
-    
+  const handleOnSubmitForm = (data) => {
+
+    dispatch(saveInputValue(data));
+  };
+
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleSubmit(handleOnSubmitForm)}>
       <div className="input-ui">
         <div className="input-container">
           <label>* نام</label>
           <input
             type="text"
-            onChange={(e) =>
-              setInputValue({ ...inputValue, name: e.target.value })
-            }
+            name="name"
+            {...register("name", {
+              required: true,
+              minLength: 3,
+              pattern: /^[A-Za-z]+$/i 
+            })}
           />
+          {errors.fullName && <p className="error">{errorsInput.name}</p>}
         </div>
 
         <div className="input-container">
           <label> * ایمیل</label>
           <input
             type="email"
-            onChange={(e) =>
-              setInputValue({ ...inputValue, email: e.target.value })
-            }
+            name="email"
+            {...register("email", {
+              required: true,
+              minLength: 4,
+              pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
+
+            })}
           />
+          {errors.email && <p className="error">{errorsInput.email}</p>}
         </div>
       </div>
       <div className="input-ui">
@@ -48,33 +57,39 @@ const Form = () => {
           <label>* موقعیت همکاری </label>
           <input
             type="text"
-            onChange={(e) =>
-              setInputValue({ ...inputValue, phoneNumber: e.target.value })
-            }
+            name="cooperationPosition"
+            {...register("cooperationPosition", { required: true })}
           />
+          {errors.cooperationPosition && (
+            <p className="error">{errorsInput.empty_cooperationPosition}</p>
+          )}
         </div>
         <div className="input-container">
           <label> * شماره تماس</label>
           <input
             type="number"
-            onChange={(e) =>
-              setInputValue({
-                ...inputValue,
-                cooperationPosition: e.target.value,
-              })
-            }
+            name="phoneNumber"
+            {...register("phoneNumber", {
+              required: true,
+              maxLength: 11,
+              minLength : 11 ,
+              pattern:
+                /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i,
+            })}
           />
+          {errors.phoneNumber && <p className="error">{errorsInput.phoneNumber}</p>}
         </div>
       </div>
       <div className=" input-container">
         <label>* ( با فرمت های jpg png یا pdf ) فایل رزمه </label>
         <input
           type="file"
+          name="resumes"
           style={{ backgroundColor: "#fff", marginTop: "0.5rem" }}
-          onChange={(e) =>
-            setInputValue({ ...inputValue, resumes: e.target.value })
-          }
+          accept="image/png , image/jpg ,application/pdf "
+          {...register("resumes" ,{required : true})}
         />
+        {errors.resumes && <p className="error">{errorsInput.resumes}</p>}
       </div>
       <div className="btn-form">
         <button>ارسال درخواست </button>

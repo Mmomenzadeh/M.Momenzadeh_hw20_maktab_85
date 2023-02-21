@@ -1,12 +1,13 @@
 form{
    background-color:#eef3fa;
    width: 40rem;
-   height: 20rem;
+   height: 25rem;
    padding: 1rem;
    border-radius: 3rem;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+   color: #04148b;
 
 }
 
@@ -45,3 +46,13 @@ button{
     width: 100%;
     text-align: center;
 }
+
+
+
+.error {
+    color: red;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+  }
